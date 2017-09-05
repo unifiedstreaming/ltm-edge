@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Unified Streaming Platform</title>
+
+    <style type="text/css">
+      html { }
+      body {
+        font-size: 24px;
+        text-align: center;
+      }
+    </style>
+
+    <script type="text/javascript">
+      // <![CDATA[
+
+      document.title = "Unified Streaming Platform: " + gup('file');
+
+      function gup(name)
+      {
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec( window.location.href );
+        if( results == null )
+          return "";
+        else
+          return unescape(results[1]);
+      }
+
+      function basename(name)
+      {
+        name = name.replace(/^.*[\/\\]/g, '');
+
+        return name;
+      }
+
+      function write_link(format, manifest)
+      {
+        document.write('<p>');
+        document.write('<a href="' + manifest + '">');
+        document.write(format);
+        document.write('<\/a><\/p>');
+      }
+
+      function change_extension(name, extension)
+      {
+        var dot = name.lastIndexOf(".");
+        if(dot < 0) dot = 999;
+        return name.substr(0, dot) + extension;
+      }
+    // ]]>
+    </script>
+
+  </head>
+
+  <body>
+    <h1>Unified Streaming Platform - Player URLs</h1>
+
+    <script type="text/javascript">
+    // <![CDATA[
+
+      document.write('<div>');
+
+      var name = gup('file');
+      var file = gup('file');
+
+      var session_id = Math.ceil(65535 * Math.random());
+      document.write('<p>Presentation: ' + name + '<\/p>');
+
+      {
+        var manifest = file + '/' +
+                       change_extension(basename(file), '.m3u8') +
+                       '?session_id=' + session_id;
+         write_link('HTTP Live Streaming (iPhone/iPad/Android)', manifest)
+      }
+
+      {
+        var player = 'players/smp1.6.328/debug.html';
+        var manifest = file + '/' + change_extension(basename(file), '.f4m');
+        write_link('HTTP Dynamic Streaming (SMP 1.6.328 debug)', 
+                   player + '?src=' + encodeURIComponent(manifest) +
+                   '&verbose=true');
+      }
+
+      {
+        // supports client manifest version 2.2
+        var player = 'players/mmp20110410/player.html';
+        var manifest = file + '/Manifest';
+        write_link('HTTP Smooth Streaming (MMP20110410)', 
+                   player + '?file=' + encodeURIComponent(manifest +
+                   "?session_id=" + session_id) +
+                   '&text=textstream_eng');
+      }
+
+      {
+        var player = 'players/jwplayer53/player.html';
+        var manifest = file + '/Manifest' +
+                      '?session_id=' + session_id;
+        write_link('HTTP Smooth Streaming (JWPlayer)', 
+                   player + '?file=' + encodeURIComponent(manifest));
+      }
+
+      {
+        var manifest = file + '/' + change_extension(basename(file), '.mp4') +
+                      '?session_id=' + session_id;
+        write_link('Progressive download', manifest);
+      }
+
+      document.write('<\/div>');
+      // ]]>
+    </script>
+  </body>
+</html>

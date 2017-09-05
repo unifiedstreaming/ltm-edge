@@ -1,0 +1,158 @@
+upstream origin {
+    server origin.usp.local:82;
+    keepalive 32;
+}
+
+upstream smart-origin {
+    server origin.usp.local:84;
+    keepalive 32;
+}
+
+
+upstream ismproxy {
+    server edge.usp.local:83;
+    keepalive 32;
+}
+
+upstream noncachingismproxy {
+    server edge.usp.local:85;
+    keepalive 32;
+}
+
+
+server {
+    listen 80;
+    server_name cdn.edge.usp.local;
+
+    location / {
+        proxy_cache edge-cache;
+        include snippets/smart_storage_proxy.conf;
+    }
+	
+	location /test{ 
+		root proxy1;
+		index cdn.html;
+	}
+
+    location /server-status {
+        stub_status on;
+    }
+}
+
+server {
+    listen 80;
+    server_name nocache.cdn.edge.usp.local;
+
+    location / {
+	    
+        include snippets/smart_storage_proxy.conf;
+    }
+	
+	location /test{ 
+		root proxy1;
+		index nocachecdn.html;
+	}
+
+    location /server-status {
+        stub_status on;
+    }
+}
+
+
+server {
+    listen 80;
+    server_name nocache.transmux.edge.usp.local;
+
+    location /video/ {
+        proxy_pass http://noncachingismproxy/video/;
+        include snippets/basic_proxy.conf;
+    }
+
+    location / {
+		
+        include snippets/normal_storage_proxy.conf;
+    }
+	
+	location /test{ 
+		root proxy1;
+		index nocache.html;
+	}
+
+    location /server-status {
+        stub_status on;
+    }
+}
+
+
+server {
+    listen 80;
+    server_name single.transmux.edge.usp.local;
+
+    location /video/ {
+        include snippets/local_ismproxy_proxy.conf;
+    }
+
+    location / {
+        include snippets/normal_storage_proxy.conf;
+    }
+
+	location /test{ 
+		root proxy1;
+		index single.html;
+	}
+
+    location /server-status {
+        stub_status on;
+    }
+}
+
+server {
+    listen 80;
+    server_name double.transmux.edge.usp.local;
+
+    location /video/ {
+        proxy_cache edge-cache;
+        include snippets/local_ismproxy_proxy.conf;
+    }
+
+    location / {
+        proxy_cache edge-cache;
+        include snippets/normal_storage_proxy.conf;
+    }
+	
+	location /test{ 
+		root double; 
+		index double.html;
+	}
+
+    location /server-status {
+        stub_status on;
+    }
+}
+
+#server {
+#    listen 80;
+#    server_name nocache.rangeproxy.edge.usp.local;
+#
+#    location / {
+#        include snippets/normal_storage_proxy.conf;
+#        proxy_set_header Range $http_range;
+#    }
+#
+#}
+
+#server {
+#    listen 80;
+#    server_name rangeproxy.edge.usp.local;
+#
+#    location / {
+#        include snippets/normal_storage_proxy.conf;
+#
+#        proxy_cache edge-cache;
+#
+#        proxy_cache_key "$scheme$proxy_host$request_uri $http_range";
+#        proxy_set_header Range $http_range;
+#    }
+
+#}
+

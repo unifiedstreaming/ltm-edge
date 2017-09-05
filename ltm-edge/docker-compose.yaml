@@ -1,0 +1,42 @@
+version: '2'
+services:
+  ltm.demo.usp.local:
+    build: ./apache/ltm.demo.usp.local
+    environment:
+    - VIRTUAL_HOST=ltm.demo.usp.local
+    depends_on: 
+    - proxy1
+  proxy1:
+    build: ./nginx/proxy1
+    environment:
+    - VIRTUAL_HOST=nocache.cdn.edge.usp.local,cdn.edge.usp.local,nocache.transmux.edge.usp.local,double.transmux.edge.usp.local,single.transmux.edge.usp.local 
+    links:
+    - "edge.usp.local:edge.usp.local"
+    command: nginx
+    depends_on: 
+    - edge.usp.local
+    extra_hosts:
+    - "origin.usp.local:${IP_BACKEND}"
+  edge.usp.local:
+    build: ./apache/edge.usp.local
+    environment:
+    - VIRTUAL_HOST=edge.usp.local 
+    - VIRTUAL_PORT=85
+    links:
+    - "proxy2:rangeproxy.edge.usp.local"
+    - "proxy2:nocache.rangeproxy.edge.usp.local"
+    depends_on: 
+    - proxy2
+  proxy2:
+    build: ./nginx/proxy2
+    depends_on: 
+    - nginx-proxy-master 
+    command: nginx
+    extra_hosts:
+    - "origin.usp.local:${IP_BACKEND}"
+  nginx-proxy-master:
+    build: ./nginx/nginx-proxy-master
+    volumes: 
+    - /var/run/docker.sock:/tmp/docker.sock
+    ports: 
+    - 80:80

@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Demo page for showing howto stream from any domain with Unified Streaming">
+    <meta name="author" content="Unified Streaming">
+    <meta name="Keywords"
+          content="Unified Streaming, HTTP, HLS, DASH, HDS, Smooth Streaming, H.264, AVC, Apache, Nginx, Proxy" />
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>HTTP Proxy - Unified Streaming</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <script type="text/javascript" src="players/javascript/SilverlightVersion.js"></script>
+    <script type="text/javascript" src="players/javascript/AC_OETags.js"></script>
+    <script type="text/javascript" src="players/javascript/swfobject.js"></script>
+    <script src="js/jquery.min.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+      // <![CDATA[
+      var players = {
+        "m3u8": "",
+        "mpd": "dash.js-2.6.0/samples/dash-if-reference-player/index.html",
+        "manifest": "mmp20120605/player.html",
+        "f4m": "flowplayer/player.html"
+      };
+      function basename(name) {
+        name = name.replace(/^.*[\/\\]/g, '');
+        return name;
+      }
+      function get_ext(format) {
+        var ext = '.' + format;
+        if(format == "manifest") {
+          ext = 'Manifest'; 
+        }
+        return ext;
+      }
+      function file_changed(format) {
+        var url = $('input[id=file]').val();
+        // strip of http://, this is added by the IsmProxyPass directive.
+        //url = url.substr(7);
+        var filename = basename(url);
+
+        var file =  url + '/' + get_ext(format);
+        var player = players[format];
+        var url = "";
+        if (format == "mpd") {
+          url = 'players/'  + player + "?mpd=" + file;
+        } else {
+          var uri_encoded = encodeURIComponent(file);
+          url = 'players/'  + player + "?file=" + uri_encoded;
+        }
+        
+        $('#play').attr('href', url);
+      }
+	
+      function ltmup()
+      {
+        var selectBox = document.getElementById('ltm_link_select');
+        var selectedLTM = selectBox.options[selectBox.selectedIndex].value;
+        var selectedContent = $("input[name='content_select']:checked").val();
+        document.getElementById('file').value = selectedLTM +'/'+ selectedContent + '/' + selectedContent + ".ism"  ; 
+      }
+
+      function get_format() {
+        var format = "mpd";
+        if(navigator.userAgent.match(/iPad/i) ||
+           navigator.userAgent.match(/iPhone/i)) {
+          format = "m3u8";
+        } else if(DetectFlashVer("10", "1", "0")) {
+          format = "f4m";
+        } else if(isSilverlightInstalled()) {
+          format = "manifest";
+        }
+        return format;
+      }
+
+      $(document).ready(function () {
+        var format = get_format();
+        $('input[id='+format+']').attr('checked', true);
+        file_changed(format);
+
+        $('.radio-inline').on('change', function(){
+          format = $('input[name=options]:checked').attr('id');
+          file_changed(format);
+        });
+        $('input[id=file]').on('change', function(){
+          format = $('input:checked').attr('id');
+          file_changed(format);
+        });
+      });
+
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="http://docs.unified-streaming.com">Docs</a></li>
+            <li role="presentation"><a href="mailto:info@unified-streaming.com?subject=HTTP Proxy">Contact</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted"> <a href="http://www.unified-streaming.com"> <img src="images/unified-origin.png" width="160" height="47"/> </a> <a href="http://www.5g-ppp.eu/superfluidity"> <img src="images/sfu.jpg" width="200" height="47"></img> </a> </h3>
+      </div>
+
+      <div class="jumbotron">
+        <h2> Unified Origin Late Transmuxing App </h2>
+        <p class="lead"> <!--please choose an LTM configuration, or enter a link manually to test -->
+            <form>
+	    <select id="ltm_link_select" onchange="ltmup()">
+		       <option value="http://origin.usp.local:84" > 
+               <b> Direct from Dockerized Container </b> 
+               </option>
+               <option value="http://cdn.edge.usp.local/video" > 
+               <b> single origin at core, cdn style caching, no LTM</b> 
+               </option>
+               <!--<option> http://cdn.edge.usp.local/video/alvin/alvin.ism </li>-->
+               <option value="http://nocache.cdn.edge.usp.local/video"> 
+               <b> single origin at core, no caching, no LTM </b> 
+               </option> 
+               <!--<option> http://nocache.cdn.edge.local/video/alvin/alvin.ism</option> -->
+               <option value="http://nocache.transmux.edge.usp.local/video"> <b> LTM, no caching </b></option>
+               <!-- <option> http://nocache.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
+               <option value="http://single.transmux.edge.usp.local/video"> 
+               <b> LTM + byte range caching </b> 
+               </option>
+               <!--<option> http://single.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
+               <option value="http://double.transmux.edge.usp.local/video"> 
+               <b> LTM, CDN style caching + byte range caching </b> 
+               <!-- <option>http://double.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
+            </select>
+            </form>
+        </p>
+        
+        <p class="lead">
+            <form>
+              <!--<input type="radio" name="content_select" id="alvin" value="alvin" checked onchange="ltmup()"> alvin <br>
+              <input type="radio" name="content_select" id="machete" value="machete" onchange="ltmup()"> machete <br>
+              <input type="radio" name="content_select" id="ateam" value="ateam"  onchange="ltmup()"> ateam <br>-->
+			  <input type="radio" name="content_select" id="ts" value="ts" checked  onchange="ltmup()"> ts-small <br>
+              <!-- <input type="radio" name="content_select" id="elephantsdream" value="elephantsdream" checked  onchange="ltmup()"> elephants dream <br> -->
+              <!-- <input type="radio" name="content_select" id="tears-of-steel" value="tears-of-steel" onchange="ltmup()"> tears of steel  -->
+            </form>
+        </p>
+       
+       <!-- <p><a class="btn btn-lg btn-info" href="http://docs.internal.unified-streaming.com/todo/ltm.html"
+             role="button">How it works</a></p>-->
+      </div>
+
+      <div class="row marketing">
+        <div class="input-group">
+          <span class="input-group-addon" id="basic-addon1">URL</span>
+          <input type="textbox" class="form-control" 
+              placeholder="http://single.transmux.edge.usp.local/video/ts/ts.ism" 
+              aria-describedby="basic-addon1"
+              value="http://single.transmux.edge.usp.local/video/ts/ts.ism"
+              id="file">
+          </input>
+          
+        </div>
+      </div>
+
+      <div class="row marketing text-center">
+        Select format &nbsp;
+        <label class="radio-inline">
+          <input type="radio" name="options" id="mpd" checked>DASH
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="options" id="m3u8">HLS
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="options" id="manifest">Smooth
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="options" id="f4m">HDS
+        </label>
+        <br/>
+        <br/>
+        Play &nbsp; <a class="btn btn-lg btn-default glyphicon glyphicon-play" id="play"></a>
+      </div>
+
+      <footer class="footer">
+        <p>&copy; Unified Streaming 2016</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    -->
+  </body>
+</html>

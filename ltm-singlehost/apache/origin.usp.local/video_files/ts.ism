@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Unified Streaming Platform(version=1.7.4) -->
+<smil xmlns="http://www.w3.org/2001/SMIL20/Language">
+  <head>
+    <meta name="clientManifestRelativePath" content="tears-of-steel.ismc" />
+    <meta name="creator" content="Unified Streaming Platform (USP)" />
+  </head>
+  <body>
+    <switch>
+      <video src="ts.ismv" systemBitrate="813000" systemLanguage="eng">
+        <param name="trackID" value="1" valueType="data" />
+        <param name="trackName" value="video_eng" valueType="data" />
+        <param name="MaxWidth" value="568" valueType="data" />
+        <param name="MaxHeight" value="320" valueType="data" />
+        <param name="DisplayWidth" value="716" valueType="data" />
+        <param name="DisplayHeight" value="320" valueType="data" />
+        <param name="FourCC" value="AVC1" valueType="data" />
+        <param name="CodecPrivateData" value="000000016742C015DB0240A797FFC253C1D804000003000400000300C07C58BB800000000168CA8CB2" valueType="data" />
+      </video>
+    </switch>
+  </body>
+</smil>

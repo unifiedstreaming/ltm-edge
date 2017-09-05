@@ -1,0 +1,10 @@
+version: '2'
+services:
+  origin.usp.local:
+    build: ./apache/origin.usp.local
+    environment:
+    - VIRTUAL_HOST=origin.usp.local
+    - VIRTUAL_PORT=84
+    ports:
+    - 82:82
+    - 84:84

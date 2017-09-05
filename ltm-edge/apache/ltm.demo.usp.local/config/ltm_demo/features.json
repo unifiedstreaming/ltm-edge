@@ -1,0 +1,454 @@
+{
+  "features": {
+
+      "base_url":"demo.unified-streaming.com",
+
+      "players": {
+        "hls": "",
+        "mpd": "players/dash.js-2.6.0/samples/dash-if-reference-player/index.html",
+        "iss": "mmp20120605",
+        "hds": "flowplayer"
+      },
+
+      "source": {
+        "label":"Source",
+        "doc":"http://docs.unified-streaming.com/documentation/vod/index.html",
+        "ism": {
+          "label":"fragmented MP4",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/streaming.html#using-fragmented-mp4-as-source",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "manifest":"true"
+        },
+        "mp4": {
+          "label":"MP4",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/streaming.html#using-progressive-mp4-as-source",
+          "url":"video/tears-of-steel/tears-of-steel.mp4",
+          "manifest":"true"
+        },
+        "hds": {
+          "label":"F4M",
+          "doc":"http://docs.unified-streaming.com/documentation/live/advanced-live-options.html#ingest-f4m"
+        },
+        "hls": {
+          "label":"HLS",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/ingest-hls.html#ingest-hls"
+        }
+      },
+
+      "storage": {
+        "label":"Storage",
+        "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html",
+        "amazon": {
+          "label":"Amazon S3",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html#amazon-s3",
+          "url":"usp-s3-storage/tears-of-steel/tears-of-steel.ism",
+          "manifest":"true"
+        },
+        "azure": {
+          "label":"Azure Storage",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html#azure-storage",
+          "url":"usp-azure-storage/tears-of-steel/tears-of-steel.ism",
+          "manifest":"true"
+        },
+        "gs": {
+          "label":"Google Storage",
+          "doc":"http://docs.unified-streaming.com/tutorials/cloud/gce.html#using-google-storage",
+          "url":"usp-gce-storage/tears-of-steel/tears-of-steel.ism",
+          "manifest":"true"
+        },
+        "isilon": {
+          "label":"Isilon",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html#emc-isilon"
+        },
+        "scality": {
+          "label":"Scality",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html#scality"
+        },
+        "hitachi": {
+          "label":"Hitachi",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/storage.html#hitachi-cloud-service"
+        }
+      },
+
+      "proxy": {
+        "label":"Proxy",
+        "doc":"http://docs.unified-streaming.com/documentation/vod/http-proxy.html",
+        "dynamic":{
+          "label":"Dynamic server manifest",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/http-proxy.html#using-ismproxypass-to-playback-content-from-other-domains",
+          "url":"//demo.unified-streaming.com/smil.php"
+        },
+        "any":{
+          "label":"Re-stream from any domain",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/http-proxy.html#using-ismproxypass-to-re-stream-content-from-any-domain",
+          "url":"//demo.unified-streaming.com/proxy.html"
+        }
+      },
+
+      "protection": {
+        "label":"Encryption / DRM",
+        "doc":"http://docs.unified-streaming.com/documentation/drm/index.html",
+        "hls": {
+          "aes-128": {
+            "label":"AES-128",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-aes.html",
+            "url":"video/tears-of-steel/tears-of-steel-aes.ism",
+            "manifest":"true"
+          }, 
+          "sample-aes": {
+            "label":"SAMPLE-AES",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-aes.html#using-sample-aes-protocol-version-5",
+            "url":"video/tears-of-steel/tears-of-steel-sample-aes.ism",
+            "manifest":"true"
+          }, 
+          "fairplay": {
+            "label":"Fairplay",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-aes.html#using-sample-aes-streaming-key-delivery-fairplay",
+            "url":"video/tears-of-steel/tears-of-steel-sample-aes.ism"
+          },
+          "access": {
+            "label":"Access",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/adobe-access.html",
+            "url":"video/tears-of-steel/tears-of-steel-sample-access.ism"
+          },
+          "marlin": {
+            "label":"Marlin",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/marlin.html",
+            "url":"video/tears-of-steel/tears-of-steel-marlin.ism"
+          },
+          "inside": {
+            "label":"PlayReady Envelope",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-playready.html#playready-envelope-for-hls",
+            "url":"video/tears-of-steel/tears-of-steel-playready-envelope.ism"
+          },
+          "irdeto-hls-ske": {
+            "label":"Irdeto Control SKE",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/irdeto.html#irdeto-ske-for-hls"
+          },
+          "irdeto-hls-pr": {
+            "label":"Irdeto Control PlayReady",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/irdeto.html#irdeto-playready-hls"
+          },
+          "conax": {
+            "label":"Conax Contego",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-playready.html#conax-playready-hls"
+          },
+          "discretix": {
+            "label":"Discretix HLS PlayReady",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-playready.html#discretix-playready-hls",
+            "url":"video/tears-of-steel/tears-of-steel-discretix.ism",
+            "manifest":"true"
+          },
+          "verimatrix": {
+            "label":"Verimatrix VCAS",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/hls-aes.html#verimatrix-vcas"
+          },
+          "transdrm": {
+            "label":"PlayReady to AES-128 (transdrm)",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/trans-drm.html",
+            "url":"video/tears-of-steel/tears-of-steel-pr-transdrm-aes128.ism",
+            "manifest":"true"
+          }
+        },
+        "mpd": {
+          "widevine": {
+            "label":"Widevine",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/widevine.html",
+            "url":"video/tears-of-steel/tears-of-steel-dash-widevine.ism",
+            "manifest":"true",
+            "player":"http://shaka-player-demo.appspot.com/demo/?dash=1;license=http://widevine-proxy.appspot.com/proxy;asset=",
+            "escape_uri":"false"
+          }, 
+          "playready": {
+            "label":"PlayReady",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/playready.html",
+            "url":"video/tears-of-steel/tears-of-steel-dash-playready.ism",
+            "manifest":"true"
+          }, 
+          "marlin": {
+            "label":"Marlin",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/marlin.html",
+            "url":"video/tears-of-steel/tears-of-steel-marlin.ism",
+            "manifest":"true",
+            "player":"false"
+          }, 
+          "cenc": {
+            "label":"Common Encryption",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/common-encryption.html"
+          },
+          "vualto": {
+            "label":"Vualto",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/vualto.html"
+          }
+        },
+        "iss": {
+          "playready": {
+            "label":"PlayReady",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/playready.html",
+            "url":"video/tears-of-steel/tears-of-steel-smooth-playready.ism",
+            "manifest":"true"
+          },
+          "cenc": {
+            "label":"Common Encryption",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/common-encryption.html"
+          },
+          "axinom": {
+            "label":"Axinom",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/axinom.html"
+          },
+          "buydrm": {
+            "label":"BuyDRM",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/playready.html#buydrm"
+          },
+          "drmtoday": {
+            "label":"drmToday",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/drmtoday.html"
+          },
+          "ezdrm": {
+            "label":"EZDRM",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/playready.html#ezdrm"
+          },
+          "irdeto": {
+            "label":"Irdeto",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/irdeto.html"
+          },
+          "vualto": {
+            "label":"Vualto",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/vualto.html"
+          },
+          "Download to own": {
+            "label":"Download to own",
+            "doc":"http://docs.unified-streaming.com/documentation/vod/progressive-download.html#download-to-own",
+            "url":"video/tears-of-steel/tears-of-steel-download-to-own.ism/download.ismv"
+          }
+        },
+        "hds": {
+          "access": {
+            "label":"Access",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/adobe-access.html",
+            "url":"video/tears-of-steel/tears-of-steel-access.ism",
+            "manifest":"true",
+            "player":"players/osmf-2.0/ezdrm.html"
+          },
+          "vualto": {
+            "label":"Vualto",
+            "doc":"http://docs.unified-streaming.com/documentation/drm/vualto.html"
+          }
+        }
+      },
+
+      "subtitles": {
+        "label":"Subtitles",
+        "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+        "hls": {
+          "webvtt": {
+            "label":"WebVTT",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles#webvtt",
+            "url":"video/elephantsdream/elephantsdream-single-audio.ism",
+            "manifest":"true"
+          },
+          "embed": {
+            "label":"Embedded 608/708",
+            "doc":"http://docs.unified-streaming.com/documentation/package/hls.html#signaling-embedded-608-708-closed-captions-protocol-version-4"
+          }
+        },
+        "iss": {
+          "single": {
+            "label":"Single language",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "player_args":"text=textstream_eng",
+            "manifest":"true"
+          },
+          "multiple": {
+            "label":"Multiple languages",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/tears-of-steel/tears-of-steel-multiple-subtitles.ism",
+            "manifest":"true",
+            "player":"false"
+          }
+        },
+        "mpd": {
+          "single": {
+            "label":"Single language",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/tears-of-steel/tears-of-steel-ru.ism",
+            "manifest":"true"
+          },
+          "multiple": {
+            "label":"Multiple languages",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/tears-of-steel/tears-of-steel-multiple-subtitles.ism",
+            "manifest":"true"
+          }
+        },
+        "hds": {
+          "single": {
+            "label":"Single language",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/elephantsdream/elephantsdream-single-audio.ism",
+            "manifest":"true",
+            "player":"players/flowplayer/player.html",
+            "subtitles":"video/elephantsdream/subs/english_en.srt"
+          },
+          "multiple": {
+            "label":"Multiple languages",
+            "doc":"http://docs.unified-streaming.com/documentation/package/subtitles.html",
+            "url":"video/tears-of-steel/tears-of-steel-multiple-subtitles.ism",
+            "manifest":"true",
+            "player":"false"
+          }
+        }
+      },
+
+      "audio": {
+        "label":"Audio",
+        "doc":"http://docs.unified-streaming.com/documentation/package/audio/index.html",
+        "hls": {
+          "tracks": {
+            "label":"Alternate audio tracks",
+            "doc":"http://docs.unified-streaming.com/documentation/vod/alternate-audio.html",
+            "url":"video/elephantsdream/elephantsdream-multiple-audio.ism",
+            "manifest":"true"
+          },
+          "audio-only": {
+            "label":"Audio only with still image",
+            "doc":"http://docs.unified-streaming.com/documentation/package/hls.html#audio-only-sample-aes"
+          }
+        },
+        "hds": {
+          "tracks": {
+            "label":"Alternate audio tracks",
+            "doc":"http://docs.unified-streaming.com/documentation/vod/alternate-audio.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "manifest":"true",
+            "player":"players/osmf_late_audio/player.html"
+          }
+        },
+        "iss": {
+          "tracks": {
+            "label":"Alternate audio tracks",
+            "doc":"http://docs.unified-streaming.com/documentation/vod/alternate-audio.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "manifest":"true"
+          },
+          "codecs": {
+            "label":"Multiple audio codecs",
+            "doc":"http://docs.unified-streaming.com/documentation/package/multiple-audio-codecs.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "manifest":"true",
+            "player":"false"
+          }
+        },
+        "mpd": {
+          "tracks": {
+            "label":"Alternate audio tracks",
+            "doc":"http://docs.unified-streaming.com/documentation/vod/alternate-audio.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "manifest":"true",
+            "player":"false"
+          },
+          "codecs": {
+            "label":"Multiple audio codecs",
+            "doc":"http://docs.unified-streaming.com/documentation/package/multiple-audio-codecs.html",
+            "url":"video/elephantsdream/elephantsdream.ism",
+            "manifest":"true",
+            "player":"false"
+          }
+        }
+      },
+
+      "manifests": {
+        "label":"Manifests",
+        "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html",
+        "limit": {
+          "label":"Limiting bandwidth use",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#limiting-bandwidth-use",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "url_args":"max_bitrate=800000",
+          "manifest":"true"
+        },
+        "dynamic": {
+          "label":"Dynamic track selection",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#dynamic-track-selection",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "url_args":"filter=(type==\"audio\"%26%26systemBitrate<100000)||(type==\"video\"%26%26systemBitrate<1024000)",
+          "manifest":"true"
+        },
+        "devices": {
+          "label":"Playout control",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/streaming.html#using-different-manifests-for-playout-control"
+        }
+      },
+
+      "subclips": {
+        "label":"Subclips",
+        "doc":"",
+        "begin": {
+          "label":"Shift forward",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#virtual-subclips",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "url_args":"vbegin=00:06:00",
+          "manifest":"true"
+        },
+        "end": {
+          "label":"Cut-off end",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#virtual-subclips",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "url_args":"vend=00:01:00",
+          "manifest":"true"
+        },
+        "range": {
+          "label":"Range",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#virtual-subclips",
+          "url":"video/tears-of-steel/tears-of-steel.ism",
+          "url_args":"t=00:06:00-00:07:30",
+          "manifest":"true"
+        },
+        "try": {
+          "label":"Create subclip",
+          "doc":"http://docs.unified-streaming.com/documentation/vod/player-urls.html#virtual-subclips",
+          "url":"//demo.unified-streaming.com/subclips.html"
+        },
+        "capture": {
+          "label":"Capture",
+          "doc":"http://docs.unified-streaming.com/documentation/capture/index.html"
+        },
+
+        "timeshift": {
+          "label":"Timeshift",
+          "doc":"http://docs.unified-streaming.com/documentation/live/streaming.html#timeshift"
+        }
+      },
+
+      "misc": {
+        "label":"Miscellaneous",
+        "doc":"",
+        "auth": {
+          "label":"Authentication",
+          "doc":"http://docs.unified-streaming.com/tutorials/security/index.html"
+        },
+        "caching": {
+          "label":"Caching",
+          "doc":"http://docs.unified-streaming.com/tutorials/caching/index.html"
+        },
+        "devices": {
+          "label":"Player/device support",
+          "doc":"http://docs.unified-streaming.com/faqs/players/index.html"
+        },
+        "encoding": {
+          "label":"Encoding",
+          "doc":"http://docs.unified-streaming.com/faqs/encoding/index.html"
+        },
+        "stats": {
+          "label":"Retrieving (live) state and statistics",
+          "doc":"http://docs.unified-streaming.com/documentation/live/publishing-points.html#pubpoint-state"
+        },
+        "monitoring": {
+          "label":"Monitoring",
+          "doc":"http://docs.unified-streaming.com/tutorials/statistics/index.html"
+        }
+     }
+  }
+}
+

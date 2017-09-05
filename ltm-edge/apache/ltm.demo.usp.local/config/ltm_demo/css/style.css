@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#content {
+  margin: 0 auto;
+  overflow: hidden;
+  width: 960px;
+}
+
+h1 {
+  color: #222222;
+  font-size: 28px;
+  margin: 0px;
+  text-align: center;
+}
+
+h2 {
+  color: #323222;
+  font-size: 22px;
+  margin-bottom: 3px;
+  text-align: center;
+}
+
+.aligncenter {
+  display: block;
+  margin: 0 auto;
+}
+
+.infobox {
+  float: left;
+  padding: 15px;
+  width: 284px;
+}
+
+h3 {
+  color: #424242;
+  font-size: 20px;
+  margin-bottom: 3px;
+}
+
+a img {
+  border: medium none;
+}
+
+.break {
+  clear: both;
+}
+
+#players {
+}
+
+#players ul {
+  margin: 8px;
+}
+
+#players ul li {
+  margin: 4px;
+}
+
+#footer p {
+  text-align: center;
+}
+
+label.textbox {
+  line-height: 31px;
+  background-color: #d4d4d4;
+  border-width: 1px medium 1px 1px;
+  border-style: solid none solid solid;
+  border-color: #9b9b9b;
+  color: #444444;
+  height: 33px;
+  padding: 0 8px 0 0;
+}
+input.textbox {
+  line-height: 31px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #9b9b9b;
+  width: 585px;
+  height: 33px;
+}
+
