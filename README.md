@@ -30,6 +30,7 @@ Whether the LTM services are run in 1 or 2 hosts, a DNS mapping in the client si
 ```
 IP_EDGE ltm.demo.usp.local
 IP_BACKEND origin.usp.local
+IP_EDGE edge.usp.local
 IP_EDGE cdn.edge.usp.local
 IP_EDGE nocache.cdn.edge.usp.local
 IP_EDGE nocache.transmux.edge.usp.local
