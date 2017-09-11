@@ -13,7 +13,7 @@ Moreover, `jwilder-proxy` is also used as a proxy connecting the inner part of t
 1. This setup assumes that you will only run the LTM services under one host (so the Edge and Backend functionality resides within the same host). The communication between the Edge and Backend will be conducted inside the docker network.
 2. Put the folder ```ltm-singlehost``` into your designated machine.
 3. Paste the Unified Origin license key into these files : ```apache/edge.usp.local/config/key``` and ```apache/origin.usp.local/config/key```
-3. Run ```sudo ./docker-compose up``` to activate the LTM services.
+4. Run ```sudo ./run.sh up``` to activate the LTM services.
 
 ## Instructions for 2 Hosts
 1. This setup assumes that you have 2 VM called ```ltm-edge``` and ```ltm-backend```.
