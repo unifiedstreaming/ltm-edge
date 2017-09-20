@@ -53,6 +53,8 @@ COPY video_files/ts.ismv /var/www/vod/video/ts/ts.ismv
 COPY video_files/ts.ism /var/www/vod/video/ts/ts.ism
 
 COPY config/index.html /var/www/vod/video/index.html
+COPY config/crossdomain.xml /var/www/vod/crossdomain.xml
+COPY config/clientaccesspolicy.xml /var/www/vod/clientaccesspolicy.xml
 
 COPY config/index.html /var/www/vod/index.html
 
