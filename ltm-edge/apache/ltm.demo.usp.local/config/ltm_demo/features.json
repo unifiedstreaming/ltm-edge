@@ -4,7 +4,7 @@
       "base_url":"demo.unified-streaming.com",
 
       "players": {
-        "hls": "",
+        "hls": "players/jwplayer-7.10.1/player.html",
         "mpd": "players/dash.js-2.6.0/samples/dash-if-reference-player/index.html",
         "iss": "mmp20120605",
         "hds": "flowplayer"
