@@ -30,7 +30,7 @@
     <script type="text/javascript">
       // <![CDATA[
       var players = {
-        "m3u8": "",
+        "m3u8": "jwplayer-7.10.1/player.html",
         "mpd": "dash.js-2.6.0/samples/dash-if-reference-player/index.html",
         "manifest": "mmp20120605/player.html",
         "f4m": "flowplayer/player.html"
@@ -42,7 +42,7 @@
       function get_ext(format) {
         var ext = '.' + format;
         if(format == "manifest") {
-          ext = 'Manifest'; 
+          ext = 'Manifest';
         }
         return ext;
       }
@@ -61,16 +61,18 @@
           var uri_encoded = encodeURIComponent(file);
           url = 'players/'  + player + "?file=" + uri_encoded;
         }
-        
+
         $('#play').attr('href', url);
       }
-	
+
       function ltmup()
       {
         var selectBox = document.getElementById('ltm_link_select');
         var selectedLTM = selectBox.options[selectBox.selectedIndex].value;
         var selectedContent = $("input[name='content_select']:checked").val();
-        document.getElementById('file').value = selectedLTM +'/'+ selectedContent + '/' + selectedContent + ".ism"  ; 
+        document.getElementById('file').value = selectedLTM +'/'+ selectedContent + '/' + selectedContent + ".ism"  ;
+	format = $('input[name=options]:checked').attr('id');
+	file_changed(format);
       }
 
       function get_format() {
@@ -95,9 +97,9 @@
           format = $('input[name=options]:checked').attr('id');
           file_changed(format);
         });
-        $('input[id=file]').on('change', function(){
+        $('input[id=file]').on('input', function(){
           format = $('input:checked').attr('id');
-          file_changed(format);
+	  file_changed(format);
         });
       });
 
@@ -122,30 +124,28 @@
         <p class="lead"> <!--please choose an LTM configuration, or enter a link manually to test -->
             <form>
 	    <select id="ltm_link_select" onchange="ltmup()">
-		       <option value="http://origin.usp.local:84" > 
-               <b> Direct from Dockerized Container </b> 
-               </option>
-               <option value="http://cdn.edge.usp.local/video" > 
-               <b> single origin at core, cdn style caching, no LTM</b> 
+               <option value="" disabled selected>Select your option</option>
+		<option value="http://cdn.edge.usp.local/video" >
+               <b> single origin at core, cdn style caching, no LTM</b>
                </option>
                <!--<option> http://cdn.edge.usp.local/video/alvin/alvin.ism </li>-->
-               <option value="http://nocache.cdn.edge.usp.local/video"> 
-               <b> single origin at core, no caching, no LTM </b> 
-               </option> 
+               <option value="http://nocache.cdn.edge.usp.local/video">
+               <b> single origin at core, no caching, no LTM </b>
+               </option>
                <!--<option> http://nocache.cdn.edge.local/video/alvin/alvin.ism</option> -->
                <option value="http://nocache.transmux.edge.usp.local/video"> <b> LTM, no caching </b></option>
                <!-- <option> http://nocache.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
-               <option value="http://single.transmux.edge.usp.local/video"> 
-               <b> LTM + byte range caching </b> 
+               <option value="http://single.transmux.edge.usp.local/video">
+               <b> LTM + byte range caching </b>
                </option>
                <!--<option> http://single.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
-               <option value="http://double.transmux.edge.usp.local/video"> 
-               <b> LTM, CDN style caching + byte range caching </b> 
+               <option value="http://double.transmux.edge.usp.local/video">
+               <b> LTM, CDN style caching + byte range caching </b>
                <!-- <option>http://double.transmux.edge.usp.local/video/alvin/alvin.ism </option> -->
             </select>
             </form>
         </p>
-        
+
         <p class="lead">
             <form>
               <!--<input type="radio" name="content_select" id="alvin" value="alvin" checked onchange="ltmup()"> alvin <br>
@@ -156,7 +156,7 @@
               <!-- <input type="radio" name="content_select" id="tears-of-steel" value="tears-of-steel" onchange="ltmup()"> tears of steel  -->
             </form>
         </p>
-       
+
        <!-- <p><a class="btn btn-lg btn-info" href="http://docs.internal.unified-streaming.com/todo/ltm.html"
              role="button">How it works</a></p>-->
       </div>
@@ -164,20 +164,20 @@
       <div class="row marketing">
         <div class="input-group">
           <span class="input-group-addon" id="basic-addon1">URL</span>
-          <input type="textbox" class="form-control" 
-              placeholder="http://single.transmux.edge.usp.local/video/ts/ts.ism" 
+          <input type="textbox" class="form-control"
+              placeholder=""
               aria-describedby="basic-addon1"
-              value="http://single.transmux.edge.usp.local/video/ts/ts.ism"
+              value=""
               id="file">
           </input>
-          
+
         </div>
       </div>
 
       <div class="row marketing text-center">
         Select format &nbsp;
         <label class="radio-inline">
-          <input type="radio" name="options" id="mpd" checked>DASH
+          <input type="radio" name="options" id="mpd">DASH
         </label>
         <label class="radio-inline">
           <input type="radio" name="options" id="m3u8">HLS
@@ -199,7 +199,7 @@
 
     </div> <!-- /container -->
 
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug 
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     -->
   </body>
