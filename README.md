@@ -46,4 +46,4 @@ Open http://ltm.demo.usp.local on your web browser to see the LTM-demo webpage :
 
 
 --
-*Contributor : Rufael Mekuria (rufael@unified-streaming.com) and Reza Aditya Permadi (reditya@gmail.com)*
+*Contributor : Rufael Mekuria (rufael@unified-streaming.com)*
