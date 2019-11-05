@@ -8,10 +8,10 @@ RUN apk --update add bash bash-doc bash-completion apache2 supervisor \
 
 #RUN apk --update add mp4split mod_smooth_streaming --repository http://alpine.unified-streaming.com/repo --allow-untrusted
 RUN wget -q -O /etc/apk/keys/alpine@unified-streaming.com.rsa.pub \
-  http://apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
+  http://stable.apk.unified-streaming.com/alpine@unified-streaming.com.rsa.pub
 
 RUN apk --update \
-        --repository http://apk.unified-streaming.com/repo \
+        --repository http://stable.apk.unified-streaming.com/target/repo \
         add \
           mp4split \
           mod_smooth_streaming \
